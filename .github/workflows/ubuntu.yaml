@@ -21,6 +21,12 @@ jobs:
       - uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
+      - name: Build
+        run: |
+          xmake
+      - name: Package
+        run: |
+          cd build/linux/x86_64/release/ && zip -r xavine.zip * && mv xavine.zip ../../../../
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           automatic_release_tag: "latest"
@@ -28,10 +34,3 @@ jobs:
           prerelease: true
           files: |
             xavine.zip
-
-      - name: Build
-        run: |
-          xmake
-      - name: Package
-        run: |
-          cd build/linux/x86_64/release/ && zip -r xavine.zip * && mv xavine.zip ../../../../
