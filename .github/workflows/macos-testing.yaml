@@ -1,0 +1,39 @@
+name: macOS
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macOS-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    concurrency:
+        group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-macOS-${{ matrix.kind }}
+        cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v1
+      - uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+      - name: Build
+        run: |
+          xmake
+      - name: Search
+        run: |
+          find .
+      - name: Package
+        run: |
+          cd build/macos/x86_64/release/ && zip -r xavine-macos.zip * && mv xavine-macos.zip ../../../../
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: ${{ github.event.pull_request.title }}
+          prerelease: true
+          files: |
+            xavine-macos.zip
