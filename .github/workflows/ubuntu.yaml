@@ -1,0 +1,37 @@
+name: Linux
+
+on:
+  pull_request:
+    branches:
+      - testing
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+
+    runs-on: ${{ matrix.os }}
+
+    concurrency:
+        group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-Linux-${{ matrix.kind }}
+        cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v1
+      - uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          automatic_release_tag: "latest"
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: true
+          files: |
+            xavine.zip
+
+      - name: Build
+        run: |
+          xmake
+      - name: Package
+        run: |
+          cd build/linux/x86_64/release/ && zip -r xavine.zip * && mv xavine.zip ../../../../
