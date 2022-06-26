@@ -34,12 +34,15 @@ jobs:
         run: |
           cd build/macosx/x86_64/release/ && zip -r xavine-macos.zip * && mv xavine-macos.zip ../../../../
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         with:
-          files: |
+          artifacts: |
             xavine-macos.zip
-          generate_release_notes: true
-          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
+          generateReleaseNotes: true
           name: test
 #          name: ${{ github.event.pull_request.title }}
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          omitBodyDuringUpdate: true
+          prerelease: true
+          replacesArtifacts: true
