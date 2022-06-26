@@ -33,11 +33,13 @@ jobs:
       - name: Package
         run: |
           cd build/macosx/x86_64/release/ && zip -r xavine-macos.zip * && mv xavine-macos.zip ../../../../
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: test
-#          automatic_release_tag: ${{ github.event.pull_request.title }}
-          prerelease: true
           files: |
             xavine-macos.zip
+          generate_release_notes: true
+          prerelease: true
+          name: test
+#          name: ${{ github.event.pull_request.title }}
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
