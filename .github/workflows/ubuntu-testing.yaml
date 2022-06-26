@@ -38,8 +38,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           generateReleaseNotes: true
-          name: test
-#          name: ${{ github.event.pull_request.title }}
+          tag: test
+#          tag: ${{ github.event.pull_request.title }}
           omitBodyDuringUpdate: true
           prerelease: true
           replacesArtifacts: true
