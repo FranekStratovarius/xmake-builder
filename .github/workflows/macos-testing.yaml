@@ -32,7 +32,7 @@ jobs:
           find .
       - name: Package
         run: |
-          cd build/macos/x86_64/release/ && zip -r xavine-macos.zip * && mv xavine-macos.zip ../../../../
+          cd build/macosx/x86_64/release/ && zip -r xavine-macos.zip * && mv xavine-macos.zip ../../../../
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
