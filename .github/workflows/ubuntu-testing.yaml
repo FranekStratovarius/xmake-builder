@@ -27,7 +27,8 @@ jobs:
           xmake-version: latest
       - name: Build
         run: |
-          xmake -a ${{ matrix.arch }}
+          xmake f --arch ${{ matrix.arch }}
+          xmake -vD
       - name: Package
         run: |
           cd build/linux/${{ matrix.arch }}/release/ && zip -r xavine-linux-${{ matrix.arch }}.zip * && mv xavine-linux-${{ matrix.arch }}.zip ../../../../
