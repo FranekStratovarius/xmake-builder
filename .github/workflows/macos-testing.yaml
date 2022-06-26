@@ -36,7 +36,8 @@ jobs:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{ github.event.pull_request.title }}
+          automatic_release_tag: test
+#          automatic_release_tag: ${{ github.event.pull_request.title }}
           prerelease: true
           files: |
             xavine-macos.zip
