@@ -31,7 +31,7 @@ jobs:
           xmake -vD
       - name: Package
         run: |
-          cd build/windows/${{ matrix.arch }}/release/ && Compress-Archive -Path . xavine-windows-${{ matrix.arch }}.zip && mv xavine-windows-${{ matrix.arch }}.zip ../../../../
+          cd build/windows/${{ matrix.arch }}/release/ && Compress-Archive -Path ./* xavine-windows-${{ matrix.arch }}.zip && mv xavine-windows-${{ matrix.arch }}.zip ../../../../
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
