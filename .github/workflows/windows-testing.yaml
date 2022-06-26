@@ -12,8 +12,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macOS-latest]
-        arch: [x84_64, arm64]
+        os: [windows-2019]
+        arch: [x64, x86]
 
     runs-on: ${{ matrix.os }}
 
@@ -33,12 +33,12 @@ jobs:
           find .
       - name: Package
         run: |
-          cd build/macosx/${{ matrix.arch }}/release/ && zip -r xavine-macos-${{ matrix.arch }}.zip * && mv xavine-macos-${{ matrix.arch }}.zip ../../../../
+          cd build/macosx/${{ matrix.arch }}/release/ && zip -r xavine-windows-${{ matrix.arch }}.zip * && mv xavine-windows-${{ matrix.arch }}.zip ../../../../
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
-            xavine-macos-${{ matrix.arch }}.zip
+            xavine-windows-${{ matrix.arch }}.zip
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           generateReleaseNotes: true
