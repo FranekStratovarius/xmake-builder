@@ -4,9 +4,6 @@ on:
   pull_request:
     branches:
       - testing
-  push:
-    branches: 
-      - dev
 
 jobs:
   build:
@@ -40,8 +37,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           generateReleaseNotes: true
-          tag: test
-#          tag: ${{ github.event.pull_request.title }}
+          tag: ${{ github.event.pull_request.title }}
           omitBodyDuringUpdate: true
           prerelease: true
           replacesArtifacts: true
