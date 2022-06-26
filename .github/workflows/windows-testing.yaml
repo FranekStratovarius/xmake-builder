@@ -27,14 +27,14 @@ jobs:
           xmake-version: latest
       - name: Build
         run: |
-          xmake f --arch ${{ matrix.arch }}
+          xmake f --arch=${{ matrix.arch }}
           xmake -vD
       - name: Search
         run: |
           find .
       - name: Package
         run: |
-          cd build/macosx/${{ matrix.arch }}/release/ && zip -r xavine-windows-${{ matrix.arch }}.zip * && mv xavine-windows-${{ matrix.arch }}.zip ../../../../
+          cd build/macosx/${{ matrix.arch }}/release/ && Compress-Archive -Path . xavine-windows-${{ matrix.arch }}.zip && mv xavine-windows-${{ matrix.arch }}.zip ../../../../
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
